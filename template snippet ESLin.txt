@@ -1,0 +1,74 @@
+Di bawah ini template snippet ESLint (Flat Config) yang enforce pola hanya boleh impor antar-modul lewat src/modules/<name>/index.ts menggunakan eslint-plugin-boundaries (rules boundaries/elements + boundaries/entry-point + boundaries/no-private).
+
+1) Instalasi
+npm i -D eslint-plugin-boundaries
+
+eslint-plugin-boundaries dipakai untuk enforce boundary dan entry-point antar “element type”.
+
+2) eslint.config.js (snippet siap pakai)
+// eslint.config.js (Flat Config)
+import boundaries from "eslint-plugin-boundaries";
+
+export default [
+  {
+    plugins: {
+      boundaries,
+    },
+
+    settings: {
+      // Definisikan "elements" berdasarkan folder (konsep dari plugin boundaries). [web:31]
+      "boundaries/elements": [
+        // Shared (non-domain)
+        { type: "shared", pattern: "src/shared/*" },
+
+        // Modules (domain)
+        { type: "module", pattern: "src/modules/*" },
+
+        // Next.js app routes (opsional, tapi membantu)
+        { type: "app", pattern: "src/app/*" },
+      ],
+    },
+
+    rules: {
+      // 1) Entry point rule:
+      // Jika file mengimpor "module", maka yang boleh diimpor hanya entry point (index.*). [web:56][web:31]
+      "boundaries/entry-point": [
+        "error",
+        {
+          default: "allow",
+          rules: [
+            {
+              target: ["module"],
+              allow: "index.{ts,tsx,js,jsx}",
+            },
+          ],
+        },
+      ],
+
+      // 2) no-private:
+      // Mencegah import "anak folder" dari element lain (mis. module A import module B/ui/...). [web:31]
+      "boundaries/no-private": ["error"],
+
+      // 3) element-types:
+      // Atur dependency antar tipe element (opsional tapi direkomendasikan untuk konsistensi). [web:31][web:32]
+      "boundaries/element-types": [
+        "error",
+        {
+          default: "allow",
+          rules: [
+            // app boleh import shared & modules (via entry-point yang dipaksa rule di atas)
+            { from: ["app"], allow: ["shared", "module", "app"] },
+
+            // shared tidak boleh bergantung ke modules (agar shared tetap netral)
+            { from: ["shared"], disallow: ["module"] },
+
+            // module boleh import shared dan internal module sendiri
+            // (lint entry-point + no-private akan mencegah module lain diimport internalnya)
+            { from: ["module"], allow: ["shared", "module"] },
+          ],
+        },
+      ],
+    },
+  },
+];
+
