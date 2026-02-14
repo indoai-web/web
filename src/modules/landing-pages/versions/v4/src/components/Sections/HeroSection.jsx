@@ -1,8 +1,30 @@
+import React from 'react'
 import { motion } from 'framer-motion'
-import { Ticket, Calendar, Clock, Users } from 'lucide-react'
+import { Ticket, Calendar, Clock, Users, Trophy, Gift } from 'lucide-react'
 import GlassCard from '../GlassCard'
 
 const HeroSection = () => {
+    const [count, setCount] = React.useState(0)
+
+    React.useEffect(() => {
+        let start = 0
+        const end = 500
+        const duration = 2000
+        const increment = end / (duration / 16)
+
+        const timer = setInterval(() => {
+            start += increment
+            if (start >= end) {
+                setCount(end)
+                clearInterval(timer)
+            } else {
+                setCount(Math.floor(start))
+            }
+        }, 16)
+
+        return () => clearInterval(timer)
+    }, [])
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -44,13 +66,42 @@ const HeroSection = () => {
                             🚀 MASA DEPAN ASET DIGITAL
                         </motion.div>
 
-                        <motion.h1 variants={itemVariants} className="text-4xl md:text-7xl font-extrabold mb-5 leading-[1.1] tracking-tighter animate-text-shine font-syne uppercase">
-                            Revolusi <span className="font-serif italic capitalize text-aurora-gold">AI Influencer</span>
+                        <motion.h1 variants={itemVariants} className="text-6xl md:text-9xl font-black mb-6 leading-[0.85] tracking-tighter uppercase relative">
+                            <span className="font-bebas text-yellow-400 block mb-2 drop-shadow-[0_0_30px_rgba(250,204,21,0.4)]">Revolusi</span>
+                            <span className="font-serif italic capitalize premium-gold-shimmer text-4xl md:text-7xl block pb-2">AI Influencer</span>
                         </motion.h1>
 
-                        <motion.p variants={itemVariants} className="text-base md:text-lg text-white/70 mb-10 max-w-3xl leading-relaxed font-plus">
-                            Kuasai strategi membangun <span className="text-white font-bold font-serif italic text-aurora-gold">Aset Digital AI Influencer</span> yang bekerja <span className="text-white font-medium font-serif italic text-aurora-gold">24/7</span> untuk Anda. Bangun <span className="text-white">otoritas</span> dan buka peluang monetisasi tak terbatas.
+                        <motion.p variants={itemVariants} className="text-lg md:text-2xl text-white/90 mb-10 max-w-4xl leading-[1.4] font-newspaper text-center">
+                            Kuasai strategi membangun <span className="text-yellow-400 text-xl md:text-3xl italic block md:inline mb-2 md:mb-0">"Aset Digital AI Influencer"</span> yang bekerja <span className="text-yellow-400">24/7</span> untuk Anda. Bangun <span className="power-authority">otoritas</span> dan buka peluang monetisasi tak terbatas.
                         </motion.p>
+
+                        {/* Revolusi Trust Ticker - Final Premium Version */}
+                        <motion.div
+                            variants={itemVariants}
+                            className="w-full max-w-[1600px] mx-auto trust-ticker-container px-12 md:px-32 py-6 mb-12 flex flex-row flex-nowrap justify-center items-center gap-6 md:gap-10 overflow-hidden"
+                        >
+                            <div className="flex flex-col text-center shrink-0">
+                                <span className="font-bebas-bold text-2xl md:text-5xl text-gold-premium leading-none">{count}+</span>
+                                <span className="text-[9px] font-bold text-subtitle-gold uppercase tracking-[0.2em] font-space mt-1">Member Aktif</span>
+                            </div>
+
+                            <div className="w-px h-8 bg-white/5 shrink-0" />
+
+                            <div className="flex flex-col text-center shrink-0">
+                                <span className="font-bebas-bold text-2xl md:text-5xl green-gold-border leading-none">TERBUKTI</span>
+                                <span className="text-[9px] font-bold text-subtitle-gold uppercase tracking-[0.2em] font-space mt-1">Menghasilkan</span>
+                            </div>
+
+                            <div className="w-px h-8 bg-white/5 shrink-0" />
+
+                            <div className="flex flex-col text-left shrink-0">
+                                <div className="flex items-center">
+                                    <span className="font-bebas-bold text-2xl md:text-5xl text-red-600 leading-none">Ai Influencer</span>
+                                    <span className="premium-badge">Lifetime</span>
+                                </div>
+                                <span className="text-[9px] font-bold text-subtitle-gold uppercase tracking-[0.2em] font-space mt-1 text-center md:text-left">TOOL PREMIUM</span>
+                            </div>
+                        </motion.div>
 
                         <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full mb-12 py-8 border-y border-white/5">
                             <div className="flex items-center gap-4 group">

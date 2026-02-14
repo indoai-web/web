@@ -7,8 +7,7 @@ const FinalCTASection = () => {
     return (
         <section className="py-24 relative overflow-hidden">
             <div className="max-w-3xl mx-auto px-6 relative z-10">
-                <GlassCard className="p-8 md:p-12 text-center bg-black/40 border-aurora-gold/30 rounded-3xl relative overflow-hidden backdrop-blur-3xl" animateSweep={true}>
-
+                <GlassCard className="p-8 md:p-12 text-center bg-black/40 border-aurora-gold/30 rounded-3xl relative overflow-hidden backdrop-blur-3xl cta-premium-card" animateSweep={true}>
                     {/* Inner Glow Elements */}
                     <div className="absolute top-0 left-1/4 w-48 h-48 bg-aurora-emerald/10 blur-[80px] rounded-full pointer-events-none" />
                     <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-aurora-gold/10 blur-[80px] rounded-full pointer-events-none" />
@@ -32,18 +31,18 @@ const FinalCTASection = () => {
                             </motion.div>
 
                             <h2 className="text-4xl md:text-7xl font-bold text-white leading-[1] font-syne uppercase tracking-tighter mb-4">
-                                Amankan <br />
+                                <span className="red-gold-text animate-float-slow py-2 px-1 inline-block">Amankan</span> <br />
                                 <span className="font-serif italic capitalize flex items-baseline gap-2 justify-center">
-                                    <span className="relative inline-block group">
+                                    <span className="relative inline-block group pt-2 pb-1">
                                         {/* Super Intense Background Glow */}
                                         <div className="absolute inset-0 bg-yellow-400 blur-2xl rounded-full scale-150 animate-pulse opacity-60 pointer-events-none" />
                                         <div className="absolute inset-0 bg-aurora-gold blur-3xl rounded-full scale-200 opacity-40 pointer-events-none" />
                                         <div className="absolute inset-0 bg-white/20 blur-xl rounded-full scale-110 pointer-events-none" />
 
-                                        <span className="relative animate-text-shine inline-block z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]">Slot</span>
+                                        <span className="relative animate-text-shine inline-block z-10 drop-shadow-[0_0_15px_rgba(212,175,55,0.8)] pr-3">Slot</span>
                                         <div className="absolute -bottom-1 left-0 w-full h-[4px] bg-gradient-to-r from-aurora-gold/0 via-aurora-gold to-aurora-gold/0 z-10 shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
                                     </span>
-                                    <span className="text-aurora-gold"> mu Sekarang</span>
+                                    <span className="vibrant-yellow-text"> mu Sekarang</span>
                                 </span>
                             </h2>
                             <div className="h-0.5 w-12 bg-gradient-to-r from-aurora-emerald to-aurora-gold rounded-full mt-2 opacity-30" />

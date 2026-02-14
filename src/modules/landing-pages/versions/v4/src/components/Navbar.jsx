@@ -40,18 +40,20 @@ const Navbar = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-2 group cursor-pointer"
+                    className="flex items-center gap-3 group cursor-pointer"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                     <div className="relative">
-                        <div className="absolute -inset-1 bg-aurora-gold/20 blur-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Crown className="w-8 h-8 text-aurora-gold relative" />
+                        <div className="absolute -inset-2 bg-aurora-gold/30 blur-md rounded-lg opacity-40 group-hover:opacity-100 transition-opacity" />
+                        <div className="relative p-1.5 rounded-xl bg-gradient-to-br from-aurora-gold/20 to-aurora-gold/5 border border-aurora-gold/30 premium-shimmer shadow-lg">
+                            <Crown className="w-8 h-8 text-aurora-gold" />
+                        </div>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-xl font-black tracking-tighter leading-none font-syne uppercase">
-                            INDO<span className="text-aurora-gold">AI</span>
+                        <span className="text-2xl font-black tracking-[-0.05em] leading-none font-syne uppercase premium-text-shimmer">
+                            INDO<span className="">AI</span>
                         </span>
-                        <span className="text-[8px] uppercase tracking-[0.3em] font-bold text-white/40 font-space">REVOLUSI ASSET DIGITAL</span>
+                        <span className="text-[9px] uppercase tracking-[0.4em] font-black opacity-80 font-space shimmer-subtext">REVOLUSI ASSET DIGITAL</span>
                     </div>
                 </motion.div>
 

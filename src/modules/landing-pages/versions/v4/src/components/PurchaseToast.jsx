@@ -1,143 +1,126 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Youtube, Instagram, Twitter, Music } from 'lucide-react'
 
-const names = [
-    "Putri Salju", "Andi Wijaya", "Santi Permata", "Budi Santoso", "Rina Amelia",
-    "Eko Prasetyo", "Dewi Lestari", "Rizky Ramadhan", "Anita Sari", "Fajar Hidayat",
-    "Kevin Sanjaya", "Lidya Putri", "Bambang Pamungkas", "Siti Aminah", "Joko Widodo",
-    "Maya Kartika", "Hendra Setiawan", "Agus Sutrisno", "Yulia Wahyuni", "Dedi Kusnadi",
-    "Ratna Sari", "Iwan Fals", "Siska Rahmawati", "Taufiq Hidayat", "Indah Permata",
-    "Aditya Nugroho", "Fitriani Shinta", "Denny Sumargo", "Gita Gutawa", "Baim Wong",
-    "Raisa Andriana", "Tulus", "Isyana Sarasvati", "Afgan Syahreza", "Vidi Aldiano",
-    "Bunga Citra Lestari", "Ariel Noah", "Luna Maya", "Christian Sugiono", "Titi Kamal",
-    "Raffi Ahmad", "Nagita Slavina", "Gading Marten", "Gisella Anastasia", "Deddy Corbuzier",
-    "Najwa Shihab", "Sule", "Andre Taulany", "Vincent Rompies", "Desta Mahendra",
-    "Raditya Dika", "Ernest Prakasa", "Pandji Pragiwaksono", "Arie Kriting", "Abdur Arsyad",
-    "Kunto Aji", "Pamungkas", "Danilla Riyadi", "Hindia", "Yura Yunita",
-    "Boy William", "Daniel Mananta", "Agnez Mo", "Cinta Laura", "Joe Taslim",
-    "Iko Uwais", "Rio Dewanto", "Atiqah Hasiholan", "Reza Rahadian", "Adinia Wirasti",
-    "Dian Sastro", "Nicholas Saputra", "Tara Basro", "Chicco Jerikho", "Pevita Pearce",
-    "Hamish Daud", "Chelsea Islan", "Iqbaal Ramadhan", "Angga Yunanda", "Adhisty Zara",
-    "Prilly Latuconsina", "Aliando Syarief", "Verrell Bramasta", "Natasha Wilona", "Stefan William",
-    "Jessica Mila", "Enzy Storia", "Hesti Purwadinata", "Desta", "Irfan Hakim",
-    "Rina Nose", "Gilang Dirga", "Ruben Onsu", "Sarwendah", "Ivan Gunawan",
-    "Ayu Ting Ting", "Zaskia Gotik", "Via Vallen", "Nella Kharisma", "Denny Caknan"
-]
-
-const packages = [
-    "Paket VIP", "Bundle Lengkap", "Akses Eksklusif", "Slot AI Influencer"
+const idNames = [
+    "Agus Setiawan", "Siti Rahmawati", "Budi Santoso", "Dewi Lestari",
+    "Rian Hidayat", "Ani Wijaya", "Fajar Pratama", "Larasati Putri", "Eko Prasetyo",
+    "Maya Indah", "Hendra Kusuma", "Siska Amelia", "Dedi Kurniawan", "Ratna Sari",
+    "Iwan Setiadi", "Indah Permata", "Aditya Nugroho", "Fitriani", "Andi Pratama",
+    "Bambang Heru", "Siti Aminah", "Yulia Wahyuni", "Ahmad Fauzi", "Rina Kartika",
+    "Taufik Hidayat", "Linda Sari", "Rizky Ramadhan", "Anita Permata", "Denny Irawan",
+    "Herman Susanto", "Ratih Purwasih", "Agung Prayogo", "Doni Kusuma", "Ria Fitri"
 ]
 
 const platforms = [
     {
-        name: "YouTube",
-        icon: <Youtube className="w-5 h-5 text-white" />,
-        color: "bg-[#FF0000]",
-        textColor: "text-[#FF0000]"
+        name: 'Facebook',
+        id: 'facebook',
+        color: '#1877F2',
+        logo: `<svg viewBox="0 0 24 24" class="w-full h-full"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`
     },
     {
-        name: "Instagram",
-        icon: <Instagram className="w-5 h-5 text-white" />,
-        color: "bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
-        textColor: "text-[#ee2a7b]"
+        name: 'Instagram',
+        id: 'instagram',
+        color: '#ee2a7b',
+        logo: `<svg viewBox="0 0 24 24" class="w-full h-full"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f9ce34;stop-opacity:1" /><stop offset="50%" style="stop-color:#ee2a7b;stop-opacity:1" /><stop offset="100%" style="stop-color:#6228d7;stop-opacity:1" /></linearGradient></defs><path fill="url(#ig-grad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c.796 0 1.441.645 1.441 1.44s-.645 1.44-1.441 1.44-1.441-.645-1.441-1.44.646-1.44 1.441-1.44z"/></svg>`
     },
     {
-        name: "TikTok",
-        icon: <Music className="w-5 h-5 text-white" />,
-        color: "bg-[#000000] border border-white/20",
-        textColor: "text-[#00f2ea]"
+        name: 'YouTube',
+        id: 'youtube',
+        color: '#FF0000',
+        logo: `<svg viewBox="0 0 24 24" class="w-full h-full"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`
     },
     {
-        name: "Twitter",
-        icon: <Twitter className="w-5 h-5 text-white" />,
-        color: "bg-[#1DA1F2]",
-        textColor: "text-[#1DA1F2]"
+        name: 'TikTok',
+        id: 'tiktok',
+        color: '#00f2ea',
+        logo: `<svg viewBox="0 0 24 24" class="w-full h-full"><path fill="#fff" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
     }
-]
+];
 
 const PurchaseToast = () => {
-    const [visible, setVisible] = useState(false)
-    const [currentPurchase, setCurrentPurchase] = useState({
-        name: "",
-        package: "",
-        time: "",
-        platform: platforms[0]
-    })
+    const [toasts, setToasts] = useState([])
+    const toastCounter = useRef(0)
+    const timeoutRef = useRef(null)
 
-    const triggerNotification = () => {
-        const randomName = names[Math.floor(Math.random() * names.length)]
-        const randomPackage = packages[Math.floor(Math.random() * packages.length)]
-        const randomPlatform = platforms[Math.floor(Math.random() * platforms.length)]
-        const randomMinutes = Math.floor(Math.random() * 55) + 5
+    const triggerNotification = useCallback(() => {
+        const name = idNames[Math.floor(Math.random() * idNames.length)]
+        const platform = platforms[Math.floor(Math.random() * platforms.length)]
+        const mins = Math.floor(Math.random() * 45) + 2
+        const id = toastCounter.current++
 
-        setCurrentPurchase({
-            name: randomName,
-            package: randomPackage,
-            time: `${randomMinutes} menit yang lalu`,
-            platform: randomPlatform
-        })
+        const newToast = { id, name, platform, mins }
+        setToasts(prev => [...prev, newToast])
 
-        setVisible(true)
-
-        // Hide after 6 seconds
+        // Auto remove after 6 seconds
         setTimeout(() => {
-            setVisible(false)
+            setToasts(prev => prev.filter(t => t.id !== id))
         }, 6000)
-    }
+
+        // Schedule next toast (random 8-25s)
+        const nextTime = Math.random() * (25000 - 8000) + 8000
+        timeoutRef.current = setTimeout(triggerNotification, nextTime)
+    }, [toasts.length])
 
     useEffect(() => {
-        // Initial trigger after 5 seconds
+        // Initial trigger
         const timer = setTimeout(triggerNotification, 5000)
-
-        // Repeated trigger every 10 seconds
-        const interval = setInterval(triggerNotification, 10000)
-
         return () => {
             clearTimeout(timer)
-            clearInterval(interval)
+            if (timeoutRef.current) clearTimeout(timeoutRef.current)
         }
     }, [])
 
     return (
-        <div className="fixed bottom-6 left-6 z-[100] pointer-events-none">
+        <div id="purchaseToasts" className="fixed bottom-5 right-5 z-[50000] flex flex-col gap-2 pointer-events-none items-end">
             <AnimatePresence>
-                {visible && (
+                {toasts.map((toast) => (
                     <motion.div
-                        initial={{ opacity: 0, x: -50, scale: 0.9 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: -20, scale: 0.9, transition: { duration: 0.2 } }}
-                        className="bg-[#0f172a]/90 backdrop-blur-xl border border-aurora-gold/30 p-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center gap-4 min-w-[280px] md:min-w-[320px]"
+                        key={toast.id}
+                        initial={{ opacity: 0, x: 100, scale: 0.8 }}
+                        animate={{
+                            opacity: 1,
+                            x: 0,
+                            scale: 1,
+                            transition: {
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 15,
+                                mass: 1,
+                                ease: [0.175, 0.885, 0.32, 1.275]
+                            }
+                        }}
+                        exit={{ opacity: 0, x: 50, scale: 0.9, transition: { duration: 0.4 } }}
+                        className="purchase-toast relative"
                     >
-                        {/* Icon Container (Branded Style) */}
-                        <div className="relative flex-shrink-0">
-                            <div className={`w-12 h-12 ${currentPurchase.platform.color} rounded-xl flex items-center justify-center shadow-lg`}>
-                                {currentPurchase.platform.icon}
-                            </div>
-                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-aurora-gold rounded-full animate-ping" />
-                        </div>
+                        <div className="bg-[#141414]/95 backdrop-blur-xl border border-aurora-gold/40 rounded-[13px] flex items-center gap-3 p-3 md:p-4 shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-l-[3px]" style={{ borderLeftColor: toast.platform.color }}>
 
-                        {/* Text Content */}
-                        <div className="flex flex-col">
-                            <h4 className="text-white font-bold text-sm md:text-base font-syne uppercase">
-                                {currentPurchase.name}
-                            </h4>
-                            <p className="text-white/60 text-[10px] md:text-xs font-medium font-plus leading-tight">
-                                Telah membeli, {currentPurchase.package}...!!
-                            </p>
-                            <div className="flex items-center gap-2 mt-1">
-                                <span className={`${currentPurchase.platform.textColor} font-bold text-[9px] uppercase tracking-wider`}>
-                                    {currentPurchase.platform.name} BUY
+                            {/* Avatar / Logo Container */}
+                            <div className="purchase-avatar w-12 h-12 flex-shrink-0 flex items-center justify-center bg-black/40 rounded-xl overflow-hidden shadow-inner border border-white/5">
+                                <div
+                                    className="w-8 h-8 flex items-center justify-center"
+                                    dangerouslySetInnerHTML={{ __html: toast.platform.logo }}
+                                />
+                            </div>
+
+                            {/* Content */}
+                            <div className="purchase-content flex flex-col pr-2">
+                                <span className="purchase-name text-white font-bold text-sm md:text-base leading-tight">
+                                    {toast.name}
                                 </span>
-                                <span className="text-white/30 text-[9px]">•</span>
-                                <span className="text-white/40 text-[9px] font-medium">{currentPurchase.time}</span>
+                                <span className="purchase-text text-white/50 text-[10px] md:text-xs font-medium leading-tight mt-0.5">
+                                    Telah membeli paket ini...!!
+                                </span>
+                                <span className="purchase-platform text-[9px] font-bold mt-1 tracking-wide opacity-80" style={{ color: toast.platform.color }}>
+                                    {toast.platform.name} • {toast.mins} menit yang lalu
+                                </span>
                             </div>
-                        </div>
 
-                        {/* Side accent matching platform */}
-                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-1/2 ${currentPurchase.platform.color} rounded-r-full`} />
+                            {/* Glow Accent */}
+                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-3/5 rounded-l-full opacity-30" style={{ backgroundColor: toast.platform.color }} />
+                        </div>
                     </motion.div>
-                )}
+                ))}
             </AnimatePresence>
         </div>
     )

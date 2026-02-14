@@ -37,9 +37,9 @@ const BenefitsSection = () => {
                     className="text-center mb-16"
                 >
                     <div className="flex items-center justify-center gap-4 mb-4">
-                        <Gift className="w-8 h-8 md:w-12 md:h-12 text-aurora-gold animate-float" />
-                        <h2 className="text-3xl md:text-5xl font-black animate-text-shine font-syne uppercase">
-                            Yang Kamu <span className="italic text-aurora-gold text-aurora-gold font-serif capitalize">Dapatkan</span>
+                        <h2 className="text-3xl md:text-7xl font-bold tracking-tighter leading-[1.1]">
+                            <span className="font-syne glow-gold block md:inline mb-2 md:mb-0 md:mr-6 uppercase">Yang Kamu</span>
+                            <span className="premium-serif-gold block md:inline">Dapatkan</span>
                         </h2>
                     </div>
                     <div className="h-1 w-24 bg-aurora-gold mx-auto rounded-full" />
