@@ -14,7 +14,7 @@ import backgroundImage from './assets/background.png'
 
 function App() {
     const { scrollY, scrollYProgress } = useScroll()
-    const backgroundY = useTransform(scrollY, [0, 3000], [0, 300])
+    const backgroundY = useTransform(scrollY, [0, 3000], [-100, 100])
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
@@ -28,17 +28,17 @@ function App() {
                 {/* Advanced Atmospheric Background System */}
                 <motion.div
                     style={{ y: backgroundY }}
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute -inset-x-0 -inset-y-20 pointer-events-none"
                 >
                     <motion.img
                         src={backgroundImage}
-                        initial={{ opacity: 0.2, scale: 1.15, rotate: 0, x: 0, y: 0 }}
+                        initial={{ opacity: 0.2, scale: 1.3, rotate: 0, x: 0, y: 0 }}
                         animate={{
                             opacity: [0.2, 0.28, 0.35, 0.25, 0.2],
-                            scale: [1.15, 1.18, 1.15, 1.2, 1.15],
-                            rotate: [0, 1, -0.5, -1, 0.5, 0],
-                            x: [0, 20, -15, 10, -20, 0],
-                            y: [0, -15, 10, -5, 15, 0]
+                            scale: [1.3, 1.35, 1.3, 1.38, 1.3],
+                            rotate: [0, 0.5, -0.3, -0.5, 0.3, 0],
+                            x: [0, 15, -10, 8, -15, 0],
+                            y: [0, -10, 8, -4, 10, 0]
                         }}
                         transition={{
                             duration: 60,
