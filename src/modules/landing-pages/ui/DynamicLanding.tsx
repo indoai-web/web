@@ -2,12 +2,8 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { supabase } from '@/shared/lib/supabase-client';
 
-// Map all available versions here. 
-// This is safe because Next.js will code-split them.
-const versions = {
-    v1: dynamic(() => import('../versions/v1/page')),
-    // v2: dynamic(() => import('../versions/v2/page')),
-};
+import { LANDING_VERSIONS } from '../index';
+import TrackedLanding from './TrackedLanding';
 
 export default async function DynamicLanding() {
     // Fetch the active version from Supabase
@@ -17,12 +13,14 @@ export default async function DynamicLanding() {
         .eq('is_active', true)
         .single();
 
-    if (error || !data) {
-        // Default to v1 if error or not found
-        return <versions.v1 />;
-    }
+    const activeVersionName = (!error && data) ? data.version_name : 'v1';
 
-    const ActiveVersion = versions[data.version_name as keyof typeof versions] || versions.v1;
+    // Use the static mapping for stability (better for Turbopack)
+    const ActiveVersion = LANDING_VERSIONS[activeVersionName] || LANDING_VERSIONS.v1;
 
-    return <ActiveVersion />;
+    return (
+        <TrackedLanding version={activeVersionName}>
+            <ActiveVersion />
+        </TrackedLanding>
+    );
 }

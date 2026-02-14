@@ -1,9 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { supabase } from '@/shared/lib/supabase-client';
+import { createBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { useToast } from '@/shared/ui/Toast';
 
 export default function LoginForm() {
+    const { showToast } = useToast();
+    const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -18,8 +24,9 @@ export default function LoginForm() {
         });
 
         if (error) {
-            alert(error.message);
+            showToast(error.message, 'error');
         } else {
+            showToast('Login Berhasil!', 'success');
             window.location.href = '/dashboard';
         }
         setLoading(false);

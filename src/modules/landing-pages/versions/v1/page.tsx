@@ -13,15 +13,15 @@ export default function LandingV1() {
                         INDO AI
                     </h1>
                     <p className="text-xl md:text-2xl text-foreground/60 font-medium tracking-wide">
-                        Deep Earth & Aurora Design System
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '16px' }}>Bumi datar & Aurora Design System</span>
                     </p>
                 </header>
 
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="p-8 rounded-3xl bg-card backdrop-blur-xl border border-white-border hover:border-teal-accent/50 transition-all group">
-                        <h3 className="text-2xl font-bold mb-4 group-hover:text-teal-accent transition-colors">Modular Architecture</h3>
+                        <h3 className="text-2xl font-bold mb-4 group-hover:text-teal-accent transition-colors"> <b>Modular Architecture</b> </h3>
                         <p className="text-foreground/50 leading-relaxed">
-                            Strict boundaries enforced by ESLint. No cross-module internal imports allowed.
+                            <span style={{ fontFamily: 'monospace', fontSize: '16px' }}>Strict boundaries enforced by ESLint. No cross-module internal imports allowed.</span>
                         </p>
                     </div>
                     <div className="p-8 rounded-3xl bg-card backdrop-blur-xl border border-white-border hover:border-violet-accent/50 transition-all group">
