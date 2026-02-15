@@ -61,55 +61,12 @@ export async function GET(
                 body = googleFonts + body;
             }
 
-            const editHelperScript = `
-                <style>
-                    .visual-edit-hover { outline: 2px dashed #2dd4bf !important; cursor: pointer !important; position: relative; }
-                    .visual-edit-hover::after { 
-                        content: "Click to Edit"; 
-                        position: absolute; top: -20px; right: 0; 
-                        background: #2dd4bf; color: black; font-size: 8px; font-weight: bold; padding: 2px 4px; border-radius: 2px; z-index: 10000;
-                        text-transform: uppercase; white-space: nowrap;
-                    }
-                </style>
-                <script>
-                    document.addEventListener('mouseover', (e) => {
-                        const target = e.target;
-                        if (['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'SPAN', 'IMG', 'A', 'BUTTON', 'LI'].includes(target.tagName)) {
-                            target.classList.add('visual-edit-hover');
-                        }
-                    });
-                    document.addEventListener('mouseout', (e) => {
-                        e.target.classList.remove('visual-edit-hover');
-                    });
-                    document.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const target = e.target;
-                        const data = {
-                            type: 'VISUAL_ELEMENT_SELECTED',
-                            tagName: target.tagName,
-                            content: target.tagName === 'IMG' ? target.src : target.innerText,
-                            id: target.id || '',
-                            className: target.className || '',
-                            originalContent: target.tagName === 'IMG' ? target.src : target.innerText
-                        };
-                        window.parent.postMessage(data, '*');
-                    });
-                </script>
-            `;
-
             // 2. Make paths relative so they work with this catch-all route
             // Vite builds use /assets/ which would bypass our route
             body = body.replace(/src="\/assets\//g, 'src="assets/');
             body = body.replace(/href="\/assets\//g, 'href="assets/');
             body = body.replace(/src='\/assets\//g, "src='assets/");
             body = body.replace(/href='\/assets\//g, "href='assets/");
-
-            if (body.includes('</body>')) {
-                body = body.replace('</body>', `${editHelperScript}</body>`);
-            } else {
-                body += editHelperScript;
-            }
 
             return new Response(body, {
                 headers: { 'Content-Type': contentType },
