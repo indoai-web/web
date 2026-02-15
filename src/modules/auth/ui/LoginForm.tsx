@@ -66,7 +66,7 @@ export default function LoginForm() {
 
                 <button
                     disabled={loading}
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-teal-accent to-violet-accent text-background font-bold text-lg hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50"
+                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-teal-accent to-violet-accent text-white font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(45,212,191,0.2)]"
                 >
                     {loading ? 'Authenticating...' : 'Sign In'}
                 </button>

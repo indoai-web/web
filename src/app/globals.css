@@ -16,6 +16,8 @@
   --color-card: var(--card);
   --color-gold-accent: var(--accent-gold);
   --color-yellow-accent: var(--accent-yellow);
+  --color-teal-accent: #2dd4bf;
+  --color-violet-accent: #8b5cf6;
   --color-white-border: var(--border-white);
   --font-sans: "Inter", "Manrope", ui-sans-serif, system-ui;
 }
