@@ -24,7 +24,14 @@ export async function POST(req: Request) {
             payload = Object.fromEntries(formData.entries());
         }
 
-        const { sender, message, name: fonnteName } = payload;
+        const { sender, message, name: fonnteName, status, fromMe } = payload;
+
+        // CRITICAL: Prevent Infinite Loop
+        // Ignore status updates (e.g., sent, delivered, read) and messages from self
+        if (status || fromMe) {
+            console.log(`[WA Webhook] Ignored status update or self-message. Status: ${status}, FromMe: ${fromMe}`);
+            return NextResponse.json({ status: true, message: 'Ignored status/self-message' });
+        }
 
         if (!sender || !message) {
             return NextResponse.json({ status: false, message: 'Invalid payload' }, { status: 400 });
