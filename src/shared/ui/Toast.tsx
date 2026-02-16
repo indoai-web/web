@@ -62,20 +62,20 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             {children}
 
             {/* Toasts Container */}
-            <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none">
+            <div className="fixed bottom-24 right-6 z-[99999] flex flex-col gap-3 pointer-events-none">
                 {toasts.map(toast => (
                     <div
                         key={toast.id}
                         className={`
-                            pointer-events-auto min-w-[300px] px-6 py-4 rounded-2xl border backdrop-blur-xl shadow-2xl animate-aurora
-                            ${toast.type === 'error' ? 'bg-red-500/10 border-red-500/20 text-red-400' :
-                                toast.type === 'success' ? 'bg-teal-500/10 border-teal-500/20 text-teal-400' :
-                                    'bg-gold-accent/10 border-gold-accent/20 text-gold-accent'}
+                            pointer-events-auto min-w-[320px] px-6 py-5 rounded-3xl border backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in slide-in-from-right-10 duration-500
+                            ${toast.type === 'error' ? 'bg-red-600/20 border-red-500/40 text-red-100' :
+                                toast.type === 'success' ? 'bg-teal-600/20 border-teal-500/40 text-teal-100' :
+                                    'bg-gold-accent/20 border-gold-accent/40 text-white'}
                         `}
                     >
-                        <div className="flex items-center gap-3">
-                            <div className={`w-2 h-2 rounded-full ${toast.type === 'error' ? 'bg-red-500' : 'bg-gold-accent'}`} />
-                            <span className="text-[11px] font-black uppercase tracking-widest">{toast.message}</span>
+                        <div className="flex items-center gap-4">
+                            <div className={`w-3 h-3 rounded-full animate-pulse ${toast.type === 'error' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-gold-accent shadow-[0_0_10px_rgba(245,158,11,0.8)]'}`} />
+                            <span className="text-[12px] font-bold uppercase tracking-[0.2em]">{toast.message}</span>
                         </div>
                     </div>
                 ))}

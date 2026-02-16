@@ -99,7 +99,7 @@ const HeroSection = () => {
                                     <span className="font-bebas-bold text-2xl md:text-5xl text-red-600 leading-none">Ai Influencer</span>
                                     <span className="premium-badge">Lifetime</span>
                                 </div>
-                                <span className="text-[9px] font-bold text-subtitle-gold uppercase tracking-[0.2em] font-space mt-1 text-center md:text-left">TOOL PREMIUM</span>
+                                <span className="text-[9px] font-bold text-subtitle-gold uppercase tracking-[0.2em] font-space mt-1 text-center md:text-left">TOOL PRO</span>
                             </div>
                         </motion.div>
 

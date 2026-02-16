@@ -37,16 +37,18 @@ export async function middleware(request: NextRequest) {
         data: { session },
     } = await supabase.auth.getSession();
 
-    // Proteksi rute /dashboard
-    if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    // Proteksi rute /dashboard dan /member
+    if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/member')) {
         if (!session) {
             return NextResponse.redirect(new URL('/login', request.url));
         }
     }
 
-    // Alihkan /login ke /dashboard jika sudah login
+    // Alihkan /login jika sudah login
     if (request.nextUrl.pathname.startsWith('/login')) {
         if (session) {
+            // Kita bisa arahkan ke dashboard sebagai default, 
+            // nanti di page /dashboard atau /member akan diredirect lagi jika role tidak pas
             return NextResponse.redirect(new URL('/dashboard', request.url));
         }
     }
@@ -55,5 +57,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/dashboard/:path*', '/login'],
+    matcher: ['/dashboard/:path*', '/member/:path*', '/login'],
 };

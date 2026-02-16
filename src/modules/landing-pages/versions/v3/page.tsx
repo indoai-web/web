@@ -172,7 +172,7 @@ export default function LandingV3() {
                         <h2 className="text-5xl md:text-8xl font-black leading-[0.8] tracking-tightest">Benefit <span className="text-[#D4AF37] drop-shadow-sm italic">Sultan</span> VIP Member:</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
-                                'Akses lifetime ke seluruh tools premium',
+                                'Akses lifetime ke seluruh tools PRO',
                                 'Update materi & tools di grup WA',
                                 'Support langsung mentor via Grup WA',
                                 'Rekaman ulang (replay) webinar selamanya',

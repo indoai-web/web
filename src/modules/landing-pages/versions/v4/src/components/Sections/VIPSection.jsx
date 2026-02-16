@@ -37,7 +37,7 @@ const VIPSection = () => {
     }
 
     const benefits = [
-        "Akses lifetime ke seluruh tools premium",
+        "Akses lifetime ke seluruh tools PRO",
         "Update materi & tools terbaru di grup WA",
         "Support langsung dari mentor via grup WA",
         "Rekaman ulang (replay) webinar selamanya",
@@ -69,7 +69,7 @@ const VIPSection = () => {
 
                             <div className="space-y-6">
                                 {[
-                                    { title: "Lifetime Access", desc: "Akses Lifetime ke tool premium / Gak Lagi bayar bulanan", highlight: true },
+                                    { title: "Lifetime Access", desc: "Akses Lifetime ke tool PRO / Gak Lagi bayar bulanan", highlight: true },
                                     { title: "Update Real-time", desc: "update Materi dan Tool terbaru di WA Groub", highlight: false, link: "https://chat.whatsapp.com/F8kBfqGyMPbJ1LZeBcP4vV" },
                                     { title: "Direct Support", desc: "Konsultasi Langsung dengan Mentor di WA Groub", highlight: false, link: "https://chat.whatsapp.com/F8kBfqGyMPbJ1LZeBcP4vV" },
                                     { title: "Replay Webinar", desc: "Nonton ulang video rekaman webinar kapan saja", highlight: false },

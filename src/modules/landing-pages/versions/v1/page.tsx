@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Rocket, Laptop, PenTool, Brain, ArrowRight, Zap, CheckCircle2, ShieldCheck, Clock } from 'lucide-react';

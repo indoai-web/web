@@ -23,9 +23,14 @@ export const useEditor = (editingVersion: string, refreshPreview: () => void) =>
             const data = await res.json();
             if (data.success) {
                 setFileList(data.files);
-                if (data.files.includes('index.html')) setSelectedFile('index.html');
-                else if (data.files.includes('page.tsx')) setSelectedFile('page.tsx');
-                else if (data.files.length > 0) setSelectedFile(data.files[0]);
+                let fileToLoad = '';
+                if (data.files.includes('index.html')) fileToLoad = 'index.html';
+                else if (data.files.includes('page.tsx')) fileToLoad = 'page.tsx';
+                else if (data.files.length > 0) fileToLoad = data.files[0];
+
+                if (fileToLoad) {
+                    await loadFileContent(version, fileToLoad);
+                }
             }
         } catch (err) {
             console.error('Failed to fetch files:', err);

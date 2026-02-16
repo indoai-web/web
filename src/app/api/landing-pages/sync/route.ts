@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-// Triggering rebuild - @supabase/ssr has been removed
+// Rebuild Sync 2026-02-16: auth-helpers only
 import fs from 'fs';
 import path from 'path';
 import { createServerClient } from '@supabase/auth-helpers-nextjs';

@@ -21,10 +21,13 @@ export const PreviewArea: React.FC<PreviewAreaProps> = ({
     onOpenNewTab,
     saving
 }) => {
-    const src = `${previewMode === 'react'
+    const isReactFile = ['tsx', 'jsx', 'ts', 'js'].some(ext => selectedFile.endsWith(`.${ext}`));
+
+    const baseUrl = isReactFile
         ? `/preview?version=${version}`
-        : `/api/landing-pages/view/${version}/${selectedFile.endsWith('.html') ? selectedFile : 'index.html'}`
-        }&t=${refreshCounter}`;
+        : `/api/landing-pages/view/${version}/${selectedFile || 'index.html'}`;
+
+    const src = `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}t=${refreshCounter}`;
 
     return (
         <div className="flex-1 bg-white relative">
