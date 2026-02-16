@@ -8,7 +8,7 @@ export async function DELETE(
 ) {
     const { id } = await params;
     try {
-        const id = params.id;
+
         const cookieStore = await cookies();
         const supabase = createServerClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
