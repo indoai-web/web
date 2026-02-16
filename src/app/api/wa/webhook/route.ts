@@ -24,12 +24,19 @@ export async function POST(req: Request) {
             payload = Object.fromEntries(formData.entries());
         }
 
-        const { sender, message, name: fonnteName, status, fromMe } = payload;
+        const { sender, message, name: fonnteName, status, fromMe, device } = payload;
 
-        // CRITICAL: Prevent Infinite Loop
-        // Ignore status updates (e.g., sent, delivered, read) and messages from self
-        if (status || fromMe) {
-            console.log(`[WA Webhook] Ignored status update or self-message. Status: ${status}, FromMe: ${fromMe}`);
+        // CRITICAL: Prevent Infinite Loop & Self-Chat
+        // 1. Ignore status updates (e.g., sent, delivered, read)
+        // 2. Ignore messages where fromMe is true (or "true" string)
+        // 3. Ignore messages where sender is the same as the connected device (Self-Chat)
+        if (
+            status ||
+            fromMe === true ||
+            fromMe === 'true' ||
+            (device && sender === device)
+        ) {
+            console.log(`[WA Webhook] Ignored. Status: ${status}, FromMe: ${fromMe}, Sender: ${sender}, Device: ${device}`);
             return NextResponse.json({ status: true, message: 'Ignored status/self-message' });
         }
 
